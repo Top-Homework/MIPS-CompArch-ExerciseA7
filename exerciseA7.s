@@ -34,6 +34,7 @@ main:   li		$v0, 4		        # System call code to print string
         li		$v0, 1		        # System call to print integer 
         move 	$a0, $s6		    # Moved sum to $a0 for system call
         syscall
-        
+
         li		$v0, 10		        # Exits the program
         syscall
+        
