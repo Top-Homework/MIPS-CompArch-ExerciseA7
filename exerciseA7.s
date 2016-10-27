@@ -64,6 +64,7 @@ str:    .asciiz "This is a program that reads in three integers and prints out t
 str1:   .asciiz "Enter a first number: "
 str2:   .asciiz "Enter a second number: "
 str3:   .asciiz "Enter a third number: "
+str4:   .asciiz "the sum of the 2 largest numbers entered is: "
         .text
         .globl main
 
@@ -75,7 +76,7 @@ main:   li		$v0, 4		        # System call code to print string
         syscall
         li		$v0, 5		        # System call code to read integer
         syscall
-        move 	        $s1, $v0	        # Move integer to $s2                                          
+        move 	        $s1, $v0	        # Move integer to $s1                                         
 
         li		$v0, 4		        # System call code to print string 
         la		$a0, str2	        # Print str1
@@ -89,10 +90,34 @@ main:   li		$v0, 4		        # System call code to print string
         syscall
         li		$v0, 5		        # System call code to read integer
         syscall
-        move 	        $s3, $v0	        # Move integer to $s2
+        move 	        $s3, $v0	        # Move integer to $s3
 
+        # Is s1 <= s2?
+        ble		$s1, $s2, first	      
+        # No
+        # Is s1 <= s3?
+        ble		$s1, $s3, sum2	 
+           
+        
+        # Is s2 <= s3?
+first:  ble		$s2, $s3, sum1  	 
+
+ 
+
+sum1:   add		$s4, $s2, $s3		# $s2 + $s3 and place in $s4
+        li		$v0, 4		        # System call code to print string 
+        la		$a0, str4	        # Print str4
+        syscall
         li		$v0, 1		        # System call to print integer 
-        move 	        $a0, $s6                # Moved sum to $a0 for system call
+        move 	        $a0, $s4                # Moved sum to $a0 for system call
+        syscall
+
+sum2:   add		$s4, $s1, $s3		# $s1 + $s3 and place in $s4
+        li		$v0, 4		        # System call code to print string 
+        la		$a0, str4	        # Print str4
+        syscall
+        li		$v0, 1		        # System call to print integer 
+        move 	        $a0, $s4                # Moved sum to $a0 for system call
         syscall
 
         li		$v0, 10		        # Exits the program
