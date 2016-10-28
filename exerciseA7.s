@@ -64,7 +64,7 @@ str:    .asciiz "This is a program that reads in three integers and prints out t
 str1:   .asciiz "Enter a first number: "
 str2:   .asciiz "Enter a second number: "
 str3:   .asciiz "Enter a third number: "
-str4:   .asciiz "the sum of the 2 largest numbers entered is: "
+str4:   .asciiz "The sum of the 2 largest numbers entered is: "
         .text
         .globl main
 
@@ -94,7 +94,7 @@ main:   li		$v0, 4		        # System call code to print string
 
         # Is s1 <= s2?
         # Yes
-        ble		$s1, $s2, first	      
+        ble		$s1, $s2, first
         # No
         # Is s1 <= s3?
         # Yes
@@ -124,6 +124,8 @@ first:  ble		$s2, $s3, sum1
         syscall
         li		$v0, 1		        # System call to print integer 
         move 	        $a0, $s4                # Moved sum to $a0 for system call
+        syscall
+        li		$v0, 10		        # Exits the program
         syscall 
 
 sum1:   add		$s4, $s2, $s3		# $s2 + $s3 and place in $s4
@@ -133,6 +135,8 @@ sum1:   add		$s4, $s2, $s3		# $s2 + $s3 and place in $s4
         li		$v0, 1		        # System call to print integer 
         move 	        $a0, $s4                # Moved sum to $a0 for system call
         syscall
+        li		$v0, 10		        # Exits the program
+        syscall
 
 sum2:   add		$s4, $s1, $s3		# $s1 + $s3 and place in $s4
         li		$v0, 4		        # System call code to print string 
@@ -141,7 +145,6 @@ sum2:   add		$s4, $s1, $s3		# $s1 + $s3 and place in $s4
         li		$v0, 1		        # System call to print integer 
         move 	        $a0, $s4                # Moved sum to $a0 for system call
         syscall
-
         li		$v0, 10		        # Exits the program
         syscall
         
