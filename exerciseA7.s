@@ -93,16 +93,38 @@ main:   li		$v0, 4		        # System call code to print string
         move 	        $s3, $v0	        # Move integer to $s3
 
         # Is s1 <= s2?
+        # Yes
         ble		$s1, $s2, first	      
         # No
         # Is s1 <= s3?
-        ble		$s1, $s3, sum2	 
-           
+        # Yes
+        ble		$s1, $s3, sum2
+        # No
+        # Is s2 <= s3?
+        # Yes
+        ble		$s2, $s3, sum2
+        # No
+        add		$s4, $s2, $s1
+        li		$v0, 4		        # System call code to print string 
+        la		$a0, str4	        # Print str4
+        syscall
+        li		$v0, 1		        # System call to print integer 
+        move 	        $a0, $s4                # Moved sum to $a0 for system call
+        syscall 
         
         # Is s2 <= s3?
-first:  ble		$s2, $s3, sum1  	 
-
- 
+first:  ble		$s2, $s3, sum1
+        # Is s1 <= s3?
+        # Yes
+        ble		$s1, $s3, sum1
+        # No
+        add		$s4, $s2, $s1
+        li		$v0, 4		        # System call code to print string 
+        la		$a0, str4	        # Print str4
+        syscall
+        li		$v0, 1		        # System call to print integer 
+        move 	        $a0, $s4                # Moved sum to $a0 for system call
+        syscall 
 
 sum1:   add		$s4, $s2, $s3		# $s2 + $s3 and place in $s4
         li		$v0, 4		        # System call code to print string 
