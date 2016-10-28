@@ -79,14 +79,14 @@ main:   li		$v0, 4		        # System call code to print string
         move 	        $s1, $v0	        # Move integer to $s1                                         
 
         li		$v0, 4		        # System call code to print string 
-        la		$a0, str2	        # Print str1
+        la		$a0, str2	        # Print str2
         syscall
         li		$v0, 5		        # System call code to read integer
         syscall
         move 	        $s2, $v0	        # Move integer to $s2
 
         li		$v0, 4		        # System call code to print string 
-        la		$a0, str3	        # Print str1
+        la		$a0, str3	        # Print str3
         syscall
         li		$v0, 5		        # System call code to read integer
         syscall
